@@ -1,0 +1,1578 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>推特大赛在线 - 原创影像赛事平台,记录每一次真实表达</title>
+<meta name="description" content="推特大赛在线官方网站，专注短视频创意赛事与影像内容生态，汇聚创作者、品牌与企业，提供原创精品内容、赛事报名、创作攻略与社区互动。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312181f'/%3E%3Cpath d='M26 20l18 12-18 12z' fill='%23ff4d5e'/%3E%3C/svg%3E">
+<style>
+:root{
+  --twc-bg:#12181f;
+  --twc-panel:#1a222c;
+  --twc-panel-2:#212c39;
+  --twc-line:#2c3a4a;
+  --twc-text:#e8eef5;
+  --twc-muted:#93a4b6;
+  --twc-accent:#ff4d5e;
+  --twc-accent-2:#4de1c1;
+  --twc-glow:rgba(255,77,94,.35);
+  --twc-radius:16px;
+  --twc-shadow:0 18px 44px rgba(0,0,0,.45);
+  --twc-sticky:112px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--twc-sticky)}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",system-ui,-apple-system,sans-serif;
+  background:var(--twc-bg);
+  color:var(--twc-text);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.twc-wrap{width:min(1180px,92vw);margin:0 auto}
+.twc-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ===== 吸顶容器：公告条 + 页头 ===== */
+.twc-sticky-head{position:sticky;top:0;z-index:120}
+.twc-announce{
+  background:linear-gradient(90deg,#2a1a1f,#3a1f28 45%,#1f2a34);
+  border-bottom:1px solid #47242e;
+  font-size:13.5px;
+}
+.twc-announce-inner{
+  display:flex;align-items:center;gap:14px;
+  padding:9px 0;flex-wrap:wrap;
+}
+.twc-announce-tag{
+  flex:none;background:var(--twc-accent);color:#fff;
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  padding:2px 9px;border-radius:99px;
+}
+.twc-announce-text{color:#f0d9de;flex:1;min-width:220px}
+.twc-announce-text strong{color:#fff}
+.twc-announce-link{
+  color:var(--twc-accent-2);font-weight:600;font-size:13px;
+  border-bottom:1px dashed rgba(77,225,193,.5);padding-bottom:1px;
+}
+.twc-announce-link:hover{color:#8cf3dd}
+
+.twc-header{
+  background:rgba(18,24,31,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--twc-line);
+}
+.twc-header-inner{
+  display:flex;align-items:center;gap:26px;
+  padding:14px 0;
+}
+.twc-brand{display:flex;align-items:center;gap:11px;flex:none}
+.twc-brand-mark{
+  width:40px;height:40px;border-radius:11px;
+  background:linear-gradient(140deg,var(--twc-accent),#b3233f);
+  display:grid;place-items:center;
+  box-shadow:0 6px 18px var(--twc-glow);
+}
+.twc-brand-mark svg{width:18px;height:18px}
+.twc-brand-name{font-size:19px;font-weight:800;letter-spacing:.5px;line-height:1.2}
+.twc-brand-sub{font-size:11.5px;color:var(--twc-muted);letter-spacing:2px;text-transform:uppercase}
+.twc-nav{display:flex;align-items:center;gap:4px;flex:1;flex-wrap:wrap}
+.twc-nav a{
+  font-size:14.5px;color:var(--twc-muted);
+  padding:8px 12px;border-radius:9px;transition:.2s;
+  white-space:nowrap;
+}
+.twc-nav a:hover{color:#fff;background:var(--twc-panel-2)}
+.twc-header-actions{display:flex;align-items:center;gap:10px;flex:none}
+.twc-search{
+  display:flex;align-items:center;gap:8px;
+  background:var(--twc-panel);border:1px solid var(--twc-line);
+  border-radius:99px;padding:7px 14px;transition:.25s;
+}
+.twc-search:focus-within{border-color:var(--twc-accent);box-shadow:0 0 0 3px rgba(255,77,94,.15)}
+.twc-search input{
+  background:none;border:none;outline:none;color:var(--twc-text);
+  font-size:13.5px;width:132px;font-family:inherit;
+}
+.twc-search input::placeholder{color:#6b7d90}
+.twc-search svg{width:15px;height:15px;stroke:var(--twc-muted);flex:none}
+.twc-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border-radius:99px;font-weight:600;transition:.22s;white-space:nowrap;
+}
+.twc-btn-primary{
+  background:var(--twc-accent);color:#fff;padding:9px 20px;font-size:14px;
+  box-shadow:0 8px 20px var(--twc-glow);
+}
+.twc-btn-primary:hover{background:#ff6473;transform:translateY(-1px)}
+.twc-btn-ghost{
+  border:1px solid var(--twc-line);color:var(--twc-text);
+  padding:9px 20px;font-size:14px;background:var(--twc-panel);
+}
+.twc-btn-ghost:hover{border-color:var(--twc-accent-2);color:var(--twc-accent-2)}
+.twc-menu-toggle{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--twc-line);background:var(--twc-panel);place-items:center}
+.twc-menu-toggle span{display:block;width:17px;height:2px;background:var(--twc-text);position:relative}
+.twc-menu-toggle span::before,.twc-menu-toggle span::after{content:"";position:absolute;left:0;width:17px;height:2px;background:var(--twc-text)}
+.twc-menu-toggle span::before{top:-6px}
+.twc-menu-toggle span::after{top:6px}
+
+/* ===== 搜索反馈条 ===== */
+.twc-search-feedback{
+  display:none;background:var(--twc-panel-2);border-bottom:1px solid var(--twc-line);
+  font-size:13.5px;color:var(--twc-muted);
+}
+.twc-search-feedback.is-on{display:block}
+.twc-search-feedback-inner{padding:10px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.twc-search-feedback strong{color:var(--twc-accent-2)}
+
+/* ===== 通用 section ===== */
+.twc-section{padding:74px 0}
+.twc-section-alt{background:var(--twc-panel);border-top:1px solid var(--twc-line);border-bottom:1px solid var(--twc-line)}
+.twc-sec-head{margin-bottom:36px;display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.twc-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;color:var(--twc-accent-2);letter-spacing:2px;font-weight:700;
+  margin-bottom:10px;
+}
+.twc-eyebrow::before{content:"";width:22px;height:2px;background:var(--twc-accent-2)}
+.twc-h2{font-size:clamp(24px,3.1vw,33px);font-weight:800;letter-spacing:.5px;line-height:1.35}
+.twc-h2 em{font-style:normal;color:var(--twc-accent)}
+.twc-sec-desc{color:var(--twc-muted);font-size:14.5px;max-width:560px;margin-top:8px}
+
+/* ===== 首屏 ===== */
+.twc-hero{
+  position:relative;overflow:hidden;
+  padding:64px 0 78px;
+  background:
+    radial-gradient(900px 420px at 82% -8%,rgba(255,77,94,.22),transparent 65%),
+    radial-gradient(700px 380px at 4% 108%,rgba(77,225,193,.13),transparent 62%),
+    var(--twc-bg);
+}
+.twc-hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.twc-hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,77,94,.12);border:1px solid rgba(255,77,94,.4);
+  color:#ffb0b8;font-size:12.5px;font-weight:700;letter-spacing:1px;
+  padding:5px 14px;border-radius:99px;margin-bottom:20px;
+}
+.twc-hero-badge i{width:7px;height:7px;border-radius:50%;background:var(--twc-accent);box-shadow:0 0 10px var(--twc-accent);font-style:normal}
+.twc-hero h1{
+  font-size:clamp(34px,4.6vw,52px);font-weight:900;line-height:1.18;letter-spacing:1px;
+  margin-bottom:18px;
+}
+.twc-hero h1 span{
+  background:linear-gradient(96deg,var(--twc-accent) 10%,#ff9878 60%,var(--twc-accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.twc-hero-lead{color:#c3cfdb;font-size:16px;max-width:560px;margin-bottom:16px}
+.twc-hero-intro{color:var(--twc-muted);font-size:14.5px;max-width:576px;margin-bottom:26px}
+.twc-hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:34px}
+.twc-hero-stats{display:flex;gap:34px;flex-wrap:wrap}
+.twc-stat-num{font-size:27px;font-weight:800;color:#fff;line-height:1.2}
+.twc-stat-num small{font-size:14px;color:var(--twc-accent-2);margin-left:2px;font-weight:700}
+.twc-stat-label{font-size:12.5px;color:var(--twc-muted);letter-spacing:.5px}
+
+.twc-hero-visual{position:relative}
+.twc-hero-main{
+  border-radius:22px;overflow:hidden;border:1px solid var(--twc-line);
+  box-shadow:var(--twc-shadow);position:relative;
+}
+.twc-hero-main img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.twc-hero-play{
+  position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;
+}
+.twc-hero-play span{
+  width:64px;height:64px;border-radius:50%;background:rgba(255,77,94,.92);
+  display:grid;place-items:center;box-shadow:0 0 0 12px rgba(255,77,94,.18);
+}
+.twc-hero-play svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+.twc-hero-float{
+  position:absolute;right:-14px;bottom:-22px;
+  background:var(--twc-panel-2);border:1px solid var(--twc-line);
+  border-radius:14px;padding:12px 16px;box-shadow:var(--twc-shadow);
+  display:flex;align-items:center;gap:11px;max-width:230px;
+}
+.twc-hero-float b{display:block;font-size:13.5px;color:#fff}
+.twc-hero-float small{font-size:11.5px;color:var(--twc-muted)}
+.twc-hero-float .twc-ring{
+  width:36px;height:36px;border-radius:50%;flex:none;
+  background:conic-gradient(var(--twc-accent) 0 72%,#33414f 72% 100%);
+  display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff;
+}
+.twc-hero-float .twc-ring::after{content:"72%";background:var(--twc-panel-2);width:27px;height:27px;border-radius:50%;display:grid;place-items:center}
+
+/* ===== 深度解析 ===== */
+.twc-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.twc-prose p{color:#b9c6d3;font-size:14.8px;margin-bottom:17px;line-height:1.9}
+.twc-prose h3{font-size:17px;font-weight:800;color:#fff;margin:22px 0 9px;padding-left:12px;border-left:3px solid var(--twc-accent)}
+.twc-about-aside{
+  background:var(--twc-panel);border:1px solid var(--twc-line);
+  border-radius:var(--twc-radius);padding:26px;
+  align-self:start;position:sticky;top:calc(var(--twc-sticky) + 16px);
+}
+.twc-about-aside h3{font-size:16px;font-weight:800;margin-bottom:14px;color:#fff}
+.twc-about-list{list-style:none;display:grid;gap:14px}
+.twc-about-list li{display:flex;gap:12px;font-size:13.8px;color:var(--twc-muted);line-height:1.65}
+.twc-about-list b{color:var(--twc-accent-2);flex:none;font-size:15px;line-height:1.4}
+.twc-mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.twc-mini-stats div{background:var(--twc-panel-2);border-radius:11px;padding:12px;text-align:center}
+.twc-mini-stats strong{display:block;font-size:19px;color:#fff}
+.twc-mini-stats small{font-size:11.5px;color:var(--twc-muted)}
+
+/* ===== 焦点内容 ===== */
+.twc-focus-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:24px}
+.twc-focus-main,.twc-focus-side-item{position:relative;border-radius:var(--twc-radius);overflow:hidden;border:1px solid var(--twc-line);background:var(--twc-panel)}
+.twc-focus-main img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:.5s}
+.twc-focus-main:hover img{transform:scale(1.04)}
+.twc-cover-mask{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,14,19,.94) 4%,rgba(10,14,19,.35) 46%,rgba(10,14,19,.05) 76%);
+}
+.twc-cover-info{position:absolute;left:0;right:0;bottom:0;padding:22px}
+.twc-cover-tags{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
+.twc-chip{
+  font-size:11.5px;font-weight:700;letter-spacing:.4px;
+  background:rgba(255,77,94,.2);color:#ffb3ba;border:1px solid rgba(255,77,94,.42);
+  padding:2px 9px;border-radius:99px;
+}
+.twc-chip.is-teal{background:rgba(77,225,193,.15);color:#8cf3dd;border-color:rgba(77,225,193,.4)}
+.twc-cover-info h3{font-size:20px;font-weight:800;line-height:1.4;color:#fff;margin-bottom:7px}
+.twc-cover-info p{font-size:13px;color:#c2cfdb;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.twc-meta-row{display:flex;align-items:center;gap:12px;font-size:12px;color:#9fb0c1;flex-wrap:wrap}
+.twc-focus-side{display:grid;gap:16px}
+.twc-focus-side-item{display:flex;gap:0}
+.twc-focus-side-item img{width:42%;aspect-ratio:4/3;object-fit:cover;flex:none}
+.twc-focus-side-body{padding:15px 17px;display:flex;flex-direction:column;justify-content:center}
+.twc-focus-side-body h4{font-size:14.8px;font-weight:700;line-height:1.45;color:#fff;margin-bottom:6px}
+.twc-focus-side-body small{font-size:12px;color:var(--twc-muted)}
+
+/* ===== 视频卡片流 ===== */
+.twc-filter-bar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:26px}
+.twc-filter{
+  font-size:13px;padding:7px 15px;border-radius:99px;
+  border:1px solid var(--twc-line);color:var(--twc-muted);background:var(--twc-panel);
+  transition:.2s;
+}
+.twc-filter:hover{color:#fff;border-color:#41536a}
+.twc-filter.is-active{background:var(--twc-accent);border-color:var(--twc-accent);color:#fff;font-weight:700}
+.twc-video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.twc-video-card{
+  background:var(--twc-panel);border:1px solid var(--twc-line);border-radius:var(--twc-radius);
+  overflow:hidden;display:flex;flex-direction:column;transition:.28s;
+}
+.twc-video-card:hover{transform:translateY(-5px);border-color:#3d5169;box-shadow:var(--twc-shadow)}
+.twc-thumb{position:relative;overflow:hidden}
+.twc-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:.5s}
+.twc-video-card:hover .twc-thumb img{transform:scale(1.05)}
+.twc-thumb .twc-chip{position:absolute;top:10px;left:10px}
+.twc-duration{
+  position:absolute;right:9px;bottom:9px;font-size:11.5px;font-weight:700;
+  background:rgba(0,0,0,.72);color:#fff;padding:1px 7px;border-radius:5px;
+}
+.twc-card-body{padding:15px 16px 16px;display:flex;flex-direction:column;flex:1}
+.twc-card-body h3{font-size:15.2px;font-weight:700;line-height:1.5;color:#fff;margin-bottom:7px}
+.twc-card-body p{font-size:12.8px;color:var(--twc-muted);line-height:1.7;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.twc-card-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.twc-author{display:flex;align-items:center;gap:7px;font-size:12.3px;color:#a9b9c9}
+.twc-avatar{
+  width:26px;height:26px;border-radius:50%;flex:none;
+  display:grid;place-items:center;font-size:11.5px;font-weight:800;color:#fff;
+}
+.twc-actions{display:flex;gap:6px}
+.twc-action{
+  display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--twc-muted);
+  padding:4px 8px;border-radius:8px;transition:.2s;
+}
+.twc-action:hover{background:var(--twc-panel-2);color:#fff}
+.twc-action svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.twc-action.is-liked{color:var(--twc-accent)}
+.twc-action.is-liked svg{fill:var(--twc-accent);stroke:var(--twc-accent)}
+.twc-action.is-saved{color:var(--twc-accent-2)}
+.twc-action.is-saved svg{fill:var(--twc-accent-2);stroke:var(--twc-accent-2)}
+
+/* ===== 专题 ===== */
+.twc-topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.twc-topic{
+  border-radius:var(--twc-radius);overflow:hidden;position:relative;
+  border:1px solid var(--twc-line);background:var(--twc-panel);
+  display:flex;flex-direction:column;
+}
+.twc-topic img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:.5s}
+.twc-topic:hover img{transform:scale(1.05)}
+.twc-topic-body{padding:17px 18px 19px}
+.twc-topic-body h3{font-size:16.5px;font-weight:800;color:#fff;margin-bottom:7px}
+.twc-topic-body p{font-size:13px;color:var(--twc-muted);margin-bottom:12px}
+.twc-topic-state{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#9fb0c1}
+.twc-state-dot{display:inline-flex;align-items:center;gap:6px}
+.twc-state-dot i{width:7px;height:7px;border-radius:50%;background:var(--twc-accent-2);font-style:normal;box-shadow:0 0 8px var(--twc-accent-2)}
+.twc-state-dot.is-done i{background:#8a9aab;box-shadow:none}
+
+/* ===== 创作者 ===== */
+.twc-creator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.twc-creator{
+  background:var(--twc-panel);border:1px solid var(--twc-line);
+  border-radius:var(--twc-radius);padding:22px;transition:.26s;
+}
+.twc-creator:hover{border-color:#3d5169;transform:translateY(-4px)}
+.twc-creator-top{display:flex;align-items:center;gap:13px;margin-bottom:14px}
+.twc-creator-avatar{
+  width:52px;height:52px;border-radius:16px;flex:none;
+  display:grid;place-items:center;font-size:19px;font-weight:800;color:#fff;
+}
+.twc-creator-top h3{font-size:16px;font-weight:800;color:#fff}
+.twc-creator-top small{font-size:12px;color:var(--twc-accent-2)}
+.twc-creator p{font-size:13px;color:var(--twc-muted);margin-bottom:15px;line-height:1.75}
+.twc-creator-nums{display:flex;gap:20px;font-size:12.5px;color:#a9b9c9;border-top:1px solid var(--twc-line);padding-top:13px}
+.twc-creator-nums b{color:#fff;font-size:14.5px;margin-right:3px}
+.twc-creator-btn{
+  margin-top:14px;width:100%;text-align:center;
+  border:1px solid var(--twc-line);border-radius:9px;padding:8px;
+  font-size:13px;color:var(--twc-muted);transition:.2s;
+}
+.twc-creator-btn:hover{border-color:var(--twc-accent-2);color:var(--twc-accent-2)}
+
+/* ===== 作品墙 ===== */
+.twc-wall{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.twc-wall-item{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--twc-line)}
+.twc-wall-item img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.twc-wall-item:hover img{transform:scale(1.07)}
+.twc-wall-item.is-big{grid-column:span 2;grid-row:span 2}
+.twc-wall-item.is-wide{grid-column:span 2}
+.twc-wall-cap{
+  position:absolute;left:0;right:0;bottom:0;padding:10px 12px;
+  font-size:12px;color:#fff;background:linear-gradient(to top,rgba(8,12,17,.9),transparent);
+}
+
+/* ===== 评价 ===== */
+.twc-review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.twc-review{
+  background:var(--twc-panel);border:1px solid var(--twc-line);
+  border-radius:14px;padding:19px 20px;position:relative;
+}
+.twc-review p{font-size:13.4px;color:#c0ccd8;margin-bottom:14px;line-height:1.8}
+.twc-review-foot{display:flex;align-items:center;gap:9px}
+.twc-review-foot .twc-avatar{width:30px;height:30px;border-radius:9px}
+.twc-review-foot b{font-size:13px;color:#fff;display:block}
+.twc-review-foot small{font-size:11.5px;color:var(--twc-muted)}
+.twc-review::before{
+  content:"“";position:absolute;top:6px;right:16px;
+  font-size:46px;color:rgba(255,77,94,.22);font-family:Georgia,serif;line-height:1;
+}
+
+/* ===== 品牌动态 ===== */
+.twc-news-list{display:grid;gap:0;border-top:1px solid var(--twc-line)}
+.twc-news-item{
+  display:grid;grid-template-columns:96px 1fr auto;gap:20px;align-items:center;
+  padding:18px 6px;border-bottom:1px solid var(--twc-line);transition:.2s;
+}
+.twc-news-item:hover{background:rgba(255,255,255,.025);padding-left:14px}
+.twc-news-date{font-size:12.5px;color:var(--twc-muted);letter-spacing:.5px}
+.twc-news-item h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.twc-news-item p{font-size:12.8px;color:var(--twc-muted)}
+.twc-news-type{
+  font-size:11.5px;padding:3px 10px;border-radius:99px;
+  background:var(--twc-panel-2);color:var(--twc-accent-2);border:1px solid var(--twc-line);
+  white-space:nowrap;
+}
+
+/* ===== 合作 ===== */
+.twc-partner-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.twc-partner{
+  background:var(--twc-panel);border:1px solid var(--twc-line);
+  border-radius:11px;padding:18px 8px;text-align:center;
+  font-size:13px;color:var(--twc-muted);transition:.22s;
+}
+.twc-partner:hover{color:#fff;border-color:var(--twc-accent);background:var(--twc-panel-2)}
+
+/* ===== FAQ ===== */
+.twc-faq{display:grid;gap:11px;max-width:880px;margin:0 auto}
+.twc-faq details{
+  background:var(--twc-panel);border:1px solid var(--twc-line);
+  border-radius:12px;overflow:hidden;
+}
+.twc-faq summary{
+  padding:15px 20px;font-size:14.5px;font-weight:600;color:#fff;
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px;
+}
+.twc-faq summary::-webkit-details-marker{display:none}
+.twc-faq summary::after{content:"+";color:var(--twc-accent);font-size:19px;line-height:1;transition:.2s}
+.twc-faq details[open] summary::after{content:"−"}
+.twc-faq details[open] summary{color:var(--twc-accent-2)}
+.twc-faq-body{padding:0 20px 17px;font-size:13.5px;color:var(--twc-muted);line-height:1.85}
+
+/* ===== 联系 / 投稿 ===== */
+.twc-cta{
+  background:
+    radial-gradient(700px 300px at 88% 8%,rgba(255,77,94,.25),transparent 62%),
+    radial-gradient(500px 260px at 4% 96%,rgba(77,225,193,.16),transparent 60%),
+    var(--twc-panel-2);
+  border-top:1px solid var(--twc-line);border-bottom:1px solid var(--twc-line);
+}
+.twc-cta-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+.twc-cta h2{font-size:clamp(23px,2.9vw,31px);font-weight:800;margin-bottom:12px;line-height:1.4}
+.twc-cta p{color:#bccad7;font-size:14.5px;margin-bottom:22px;max-width:520px}
+.twc-cta-info{display:grid;gap:11px;font-size:13.5px;color:#c2cfdb}
+.twc-cta-info li{list-style:none;display:flex;gap:10px}
+.twc-cta-info b{color:var(--twc-accent-2);font-weight:700;flex:none;min-width:64px}
+.twc-cta-card{
+  background:rgba(18,24,31,.72);border:1px solid var(--twc-line);
+  border-radius:18px;padding:26px;backdrop-filter:blur(8px);
+}
+.twc-cta-card h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:14px}
+.twc-field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+.twc-field label{font-size:12.5px;color:var(--twc-muted)}
+.twc-field input,.twc-field select{
+  background:var(--twc-panel);border:1px solid var(--twc-line);border-radius:9px;
+  padding:9px 12px;color:var(--twc-text);font-size:13.5px;font-family:inherit;outline:none;
+}
+.twc-field input:focus,.twc-field select:focus{border-color:var(--twc-accent)}
+
+/* ===== 页脚 ===== */
+.twc-footer{background:#0d1218;border-top:1px solid var(--twc-line);padding:54px 0 26px}
+.twc-footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:34px;margin-bottom:38px}
+.twc-footer h4{font-size:14px;font-weight:800;color:#fff;margin-bottom:14px}
+.twc-footer p,.twc-footer li{font-size:13px;color:var(--twc-muted);line-height:2}
+.twc-footer ul{list-style:none}
+.twc-footer a:hover{color:var(--twc-accent-2)}
+.twc-footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.twc-footer-brand .twc-brand-mark{width:34px;height:34px;border-radius:9px}
+.twc-footer-brand b{font-size:16px;color:#fff;font-weight:800}
+.twc-footer-bottom{
+  border-top:1px solid var(--twc-line);padding-top:20px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:12.5px;color:#6e8095;
+}
+
+/* ===== 回到顶部 / Toast / 弹窗 ===== */
+.twc-to-top{
+  position:fixed;right:22px;bottom:22px;z-index:150;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--twc-accent);display:grid;place-items:center;
+  box-shadow:0 8px 22px var(--twc-glow);
+  opacity:0;pointer-events:none;transform:translateY(12px);transition:.3s;
+}
+.twc-to-top.is-on{opacity:1;pointer-events:auto;transform:none}
+.twc-to-top svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.4}
+
+.twc-toast{
+  position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);
+  background:#0f1620;border:1px solid var(--twc-accent);color:#fff;
+  padding:10px 22px;border-radius:99px;font-size:13.5px;z-index:300;
+  opacity:0;pointer-events:none;transition:.3s;box-shadow:var(--twc-shadow);
+}
+.twc-toast.is-on{opacity:1;transform:translate(-50%,0)}
+
+.twc-modal{
+  position:fixed;inset:0;z-index:250;background:rgba(5,8,12,.78);
+  display:none;align-items:center;justify-content:center;padding:22px;
+  backdrop-filter:blur(4px);
+}
+.twc-modal.is-on{display:flex}
+.twc-modal-box{
+  background:var(--twc-panel);border:1px solid var(--twc-line);border-radius:18px;
+  width:min(460px,100%);padding:26px;position:relative;box-shadow:var(--twc-shadow);
+  max-height:88vh;overflow:auto;
+}
+.twc-modal-box h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:8px}
+.twc-modal-box p{font-size:13.5px;color:var(--twc-muted);margin-bottom:16px}
+.twc-modal-close{
+  position:absolute;top:12px;right:14px;font-size:22px;color:var(--twc-muted);line-height:1;
+}
+.twc-modal-close:hover{color:#fff}
+.twc-share-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+.twc-share-row button{
+  border:1px solid var(--twc-line);border-radius:10px;padding:10px 4px;
+  font-size:12.5px;color:var(--twc-text);background:var(--twc-panel-2);transition:.2s;
+}
+.twc-share-row button:hover{border-color:var(--twc-accent);color:var(--twc-accent)}
+
+/* ===== 响应式 ===== */
+@media(max-width:1000px){
+  .twc-hero-inner{grid-template-columns:1fr;gap:38px}
+  .twc-about-grid{grid-template-columns:1fr}
+  .twc-about-aside{position:static}
+  .twc-focus-grid{grid-template-columns:1fr}
+  .twc-video-grid,.twc-topic-grid,.twc-creator-grid,.twc-review-grid{grid-template-columns:repeat(2,1fr)}
+  .twc-partner-grid{grid-template-columns:repeat(3,1fr)}
+  .twc-footer-grid{grid-template-columns:1fr 1fr}
+  .twc-cta-inner{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  :root{--twc-sticky:96px}
+  .twc-nav{
+    display:none;position:absolute;left:0;right:0;top:100%;
+    background:var(--twc-panel);border-bottom:1px solid var(--twc-line);
+    flex-direction:column;align-items:stretch;padding:10px 4vw 16px;gap:2px;
+  }
+  .twc-nav.is-open{display:flex}
+  .twc-nav a{padding:12px 14px}
+  .twc-header-inner{position:relative;gap:12px;flex-wrap:wrap}
+  .twc-menu-toggle{display:grid}
+  .twc-search{order:3;width:100%}
+  .twc-search input{width:100%}
+  .twc-header-actions{margin-left:auto}
+  .twc-header-actions .twc-btn-primary{display:none}
+  .twc-video-grid,.twc-topic-grid,.twc-creator-grid,.twc-review-grid{grid-template-columns:1fr}
+  .twc-wall{grid-template-columns:repeat(2,1fr)}
+  .twc-wall-item.is-big{grid-column:span 2;grid-row:span 1}
+  .twc-wall-item.is-wide{grid-column:span 1}
+  .twc-news-item{grid-template-columns:1fr;gap:6px}
+  .twc-partner-grid{grid-template-columns:repeat(2,1fr)}
+  .twc-footer-grid{grid-template-columns:1fr}
+  .twc-section{padding:52px 0}
+  .twc-hero{padding:44px 0 58px}
+  .twc-hero-float{right:0;bottom:-16px}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="twc-sticky-head">
+  <div class="twc-announce">
+    <div class="twc-wrap twc-announce-inner">
+      <span class="twc-announce-tag">新增</span>
+      <span class="twc-announce-text"><strong>2026 冬季影像挑战赛</strong> 正式开放报名，新增“城市夜行”“真实一刻”“品牌短片”三大赛道，投稿通道已于 11 月 17 日 10:00 开启。</span>
+      <a class="twc-announce-link" href="#twc-cta">立即报名 →</a>
+    </div>
+  </div>
+  <header class="twc-header">
+    <div class="twc-wrap twc-header-inner">
+      <a class="twc-brand" href="#twc-top">
+        <span class="twc-brand-mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z" fill="#fff"/></svg>
+        </span>
+        <span>
+          <span class="twc-brand-name">推特大赛在线</span>
+          <span class="twc-brand-sub">TWITTER CONTEST</span>
+        </span>
+      </a>
+      <button class="twc-menu-toggle" id="twcMenuToggle" aria-label="展开导航" aria-expanded="false"><span></span></button>
+      <nav class="twc-nav" id="twcNav" aria-label="主导航">
+        <a href="#twc-top">首页</a>
+        <a href="#twc-about">关于我们</a>
+        <a href="#twc-focus">焦点影像</a>
+        <a href="#twc-videos">热门作品</a>
+        <a href="#twc-topics">赛事专题</a>
+        <a href="#twc-creators">创作者</a>
+        <a href="#twc-news">企业动态</a>
+        <a href="#twc-faq">帮助</a>
+        <a href="#twc-cta">联系</a>
+      </nav>
+      <div class="twc-header-actions">
+        <div class="twc-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="twcSearchInput" placeholder="搜索赛事 / 创作者 / 攻略" aria-label="站内搜索">
+        </div>
+        <a class="twc-btn twc-btn-primary" href="#twc-cta">投稿报名</a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="twc-search-feedback" id="twcSearchFeedback" role="status" aria-live="polite">
+  <div class="twc-wrap twc-search-feedback-inner" id="twcSearchFeedbackInner"></div>
+</div>
+
+<main id="twc-top">
+
+  <!-- ===== 首屏 ===== -->
+  <section class="twc-hero">
+    <div class="twc-wrap twc-hero-inner">
+      <div>
+        <span class="twc-hero-badge"><i></i>官方网站 · 冬季赛事进行中</span>
+        <h1>推特大赛在线<span> · 让每一次表达被看见</span></h1>
+        <p class="twc-hero-lead">面向创作者与品牌的原创影像赛事平台，用真实的作品记录时代，用专业的标准发现新人。</p>
+        <p class="twc-hero-intro">作为持续运营的视频品牌官网，推特大赛在线深耕短视频赛事与影像内容生态，汇聚专业评审、行业企业与多元创作者，为每一份创意提供被认真对待的舞台。我们相信，好的内容来自真实的观察、持续的练习与开放的交流。</p>
+        <div class="twc-hero-actions">
+          <a class="twc-btn twc-btn-primary" href="#twc-cta">报名本届赛事</a>
+          <a class="twc-btn twc-btn-ghost" href="#twc-videos">浏览热门作品</a>
+          <button class="twc-btn twc-btn-ghost" type="button" data-twc-open="share">分享官网</button>
+        </div>
+        <div class="twc-hero-stats">
+          <div>
+            <div class="twc-stat-num" data-twc-count="186">0<small>+</small></div>
+            <div class="twc-stat-label">累计举办赛事期数</div>
+          </div>
+          <div>
+            <div class="twc-stat-num" data-twc-count="41200">0<small>+</small></div>
+            <div class="twc-stat-label">已收录原创作品</div>
+          </div>
+          <div>
+            <div class="twc-stat-num" data-twc-count="3780">0<small>+</small></div>
+            <div class="twc-stat-label">入驻创作者</div>
+          </div>
+        </div>
+      </div>
+      <div class="twc-hero-visual">
+        <div class="twc-hero-main">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23223a55'/%3E%3Cstop offset='.55' stop-color='%234a2340'/%3E%3Cstop offset='1' stop-color='%23161f2b'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23ff4d5e' stop-opacity='.85'/%3E%3Cstop offset='1' stop-color='%23ff4d5e' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='640' height='400' fill='url(%23g1)'/%3E%3Ccircle cx='470' cy='120' r='96' fill='%23ff4d5e' opacity='.22'/%3E%3Ccircle cx='470' cy='120' r='58' fill='%23ffd56b' opacity='.35'/%3E%3Cpath d='M0 300 L130 226 L250 288 L390 200 L520 262 L640 196 L640 400 L0 400 Z' fill='%230e1620' opacity='.82'/%3E%3Cpath d='M0 340 L160 292 L320 336 L470 286 L640 330 L640 400 L0 400 Z' fill='url(%23g2)'/%3E%3Cg fill='%23e8eef5' opacity='.75'%3E%3Crect x='60' y='58' width='86' height='9' rx='4'/%3E%3Crect x='60' y='80' width='140' height='7' rx='3.5' opacity='.6'/%3E%3Crect x='60' y='96' width='108' height='7' rx='3.5' opacity='.4'/%3E%3C/g%3E%3Cg transform='translate(96 184)'%3E%3Crect x='0' y='0' width='128' height='80' rx='8' fill='%230b1218' opacity='.72' stroke='%23ff4d5e' stroke-opacity='.6'/%3E%3Cpath d='M54 26l32 14-32 14z' fill='%23ff4d5e'/%3E%3C/g%3E%3C/svg%3E" alt="推特大赛在线冬季影像挑战赛主视觉海报">
+          <div class="twc-hero-play"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z"/></svg></span></div>
+        </div>
+        <div class="twc-hero-float">
+          <div class="twc-ring"></div>
+          <div>
+            <b>本届投稿完成度</b>
+            <small>距截稿还有 27 天</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 品牌解析 ===== -->
+  <section class="twc-section twc-section-alt" id="twc-about">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">品牌解析</span>
+          <h2 class="twc-h2">关于推特大赛在线，我们如何理解<em>赛事</em>与<em>内容</em></h2>
+          <p class="twc-sec-desc">一个以比赛为入口、以内容生态为长期目标的视频品牌官网。</p>
+        </div>
+      </div>
+      <div class="twc-about-grid">
+        <div class="twc-prose">
+          <p>推特大赛在线是一个专注原创影像赛事的垂直领域平台，也是本届赛事所有官方信息发布的唯一官方网站。自 2019 年首次以“短影像挑战”形式发起活动以来，我们连续举办了 186 期不同主题的比赛，从城市观察、日常生活记录到品牌短片、公益影像，逐步形成了一套稳定、公开、可复盘的赛事运营机制。平台并不把比赛当作一次性的流量活动，而是把它视为内容生态的基础设施：每一期比赛都会沉淀作品库、评审意见与创作者档案，供后来者参考与学习。</p>
+          <p>在赛事结构上，我们坚持“命题明确、评审透明、反馈完整”三项原则。命题明确意味着每期比赛都有具体的拍摄主题与提交规范，避免创作者因规则模糊而浪费精力；评审透明意味着初评、复评与终评的评分维度、权重与评委构成都会提前公示；反馈完整则要求每一份入围作品都能获得至少一条来自专业评委的书面点评，让未被选中的作品同样获得成长的可能。这三项原则看似朴素，却是我们能够持续运营七年、积累四万余件作品的根本原因。</p>
+          <h3>赛事不只是排名，更是创作方法的交流</h3>
+          <p>在推特大赛在线，排名从来不是终点。每期比赛结束后，我们会在官网的“焦点影像”栏目发布终审作品解析，把镜头语言、叙事节奏、声音设计等技术细节拆解给所有用户；同时邀请获奖创作者录制创作幕后，讲述他们在有限预算、有限时间内如何做出取舍。这些内容并不追求华丽，而是强调可复制、可借鉴。许多新加入的创作者正是通过观看往期解析，第一次理解了“为什么这个转场有效”“为什么这个长镜头没有拖沓”。这种知识传递，构成了平台最核心的公共价值。</p>
+          <h3>从创作者到品牌，双向的内容连接</h3>
+          <p>我们同时服务两类用户：一类是希望被看见的创作者，一类是希望被理解的企业与品牌。对创作者，平台提供赛事报名、作品展示、评审反馈与成长档案；对企业与品牌，平台提供命题共创、内容征集与新品影像表达的合作通道。过去两年间，已有 40 余家品牌通过本站发起命题短片征集，参与创作者超过 3200 人次，其中相当一部分合作最终转化为长期的创作关系。我们始终认为，品牌与创作者之间不应只是甲乙方关系，而应是共同完成一次表达的合作者关系。</p>
+          <h3>社区、口碑与长期主义</h3>
+          <p>一个赛事平台的活力，最终取决于社区密度。推特大赛在线通过话题标签、作品互评、新人榜与创作灵感栏目，让创作者在比赛之外也能持续交流。我们不做夸张的流量承诺，也不鼓励为迎合算法而重复自己；相反，我们更愿意看到创作者在连续几期比赛中逐渐找到自己的影像语言。正因如此，平台的口碑更多来自创作者之间的口口相传，而非短期投放。我们相信，值得信赖的内容生态需要时间，而时间恰好是我们最愿意投入的资源。</p>
+          <p>展望未来，推特大赛在线将继续围绕赛事、内容与社区三条主线深耕：一方面扩展赛事类型，覆盖纪录片短片、竖屏叙事、声音实验等更多元的表达形式；另一方面加强内容生态的开放程度，让评审标准、作品数据与创作方法更透明地呈现给所有用户。我们希望这个官网不只是一个报名入口，而是一个可以被反复阅读、反复使用的影像工作台。</p>
+        </div>
+        <aside class="twc-about-aside">
+          <h3>平台速览</h3>
+          <ul class="twc-about-list">
+            <li><b>01</b><span>官方网站统一发布赛事规则、评审名单与结果公示，信息可追溯。</span></li>
+            <li><b>02</b><span>企业级赛事运营团队，覆盖命题策划、评审组织、作品归档全流程。</span></li>
+            <li><b>03</b><span>原创作品库支持标签检索，方便创作者研究同类题材的表达方式。</span></li>
+            <li><b>04</b><span>社区鼓励真实反馈，作品互评区禁止空泛赞美与恶意攻击。</span></li>
+          </ul>
+          <div class="twc-mini-stats">
+            <div><strong>7 年</strong><small>持续运营</small></div>
+            <div><strong>40+</strong><small>合作品牌</small></div>
+            <div><strong>3200</strong><small>人次品牌共创</small></div>
+            <div><strong>186</strong><small>期赛事</small></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 焦点影像 ===== -->
+  <section class="twc-section" id="twc-focus">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">焦点影像</span>
+          <h2 class="twc-h2">本期<em>终审推荐</em>与编辑精选</h2>
+          <p class="twc-sec-desc">由专业评审与编辑部共同选出的高质量原创作品，代表本期赛事的水准。</p>
+        </div>
+        <a class="twc-btn twc-btn-ghost" href="#twc-videos">查看全部作品</a>
+      </div>
+      <div class="twc-focus-grid">
+        <article class="twc-focus-main">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='fa' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23101a26'/%3E%3Cstop offset='1' stop-color='%23313f52'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23fa)'/%3E%3Cg opacity='.9'%3E%3Ccircle cx='640' cy='96' r='52' fill='%23ffd56b' opacity='.5'/%3E%3Crect x='60' y='250' width='46' height='150' fill='%231a2430'/%3E%3Crect x='122' y='206' width='60' height='194' fill='%23232f3f'/%3E%3Crect x='198' y='266' width='42' height='134' fill='%23141d27'/%3E%3Crect x='256' y='176' width='70' height='224' fill='%232b394c'/%3E%3Crect x='342' y='240' width='48' height='160' fill='%23172029'/%3E%3Crect x='406' y='198' width='82' height='202' fill='%23243345'/%3E%3Crect x='504' y='272' width='52' height='128' fill='%23131b24'/%3E%3C/g%3E%3Cg fill='%23ff4d5e'%3E%3Crect x='70' y='258' width='8' height='8'/%3E%3Crect x='140' y='228' width='8' height='8'/%3E%3Crect x='274' y='200' width='8' height='8'/%3E%3Crect x='430' y='224' width='8' height='8'/%3E%3C/g%3E%3Cpath d='M0 384h800v66H0z' fill='%230a1118' opacity='.85'/%3E%3Cg fill='%23dbe6f0' opacity='.5'%3E%3Crect x='60' y='404' width='120' height='8' rx='4'/%3E%3Crect x='60' y='422' width='80' height='6' rx='3'/%3E%3C/g%3E%3C/svg%3E" alt="城市夜行短片《凌晨四点的便利店》封面">
+          <div class="twc-cover-mask"></div>
+          <div class="twc-cover-info">
+            <div class="twc-cover-tags">
+              <span class="twc-chip">终审推荐</span>
+              <span class="twc-chip is-teal">城市夜行</span>
+            </div>
+            <h3>凌晨四点的便利店：一座城市最安静的十二分钟</h3>
+            <p>用固定机位记录深夜便利店的顾客往来，在重复的开门声与收银提示音里，捕捉城市夜行者真实的一面。</p>
+            <div class="twc-meta-row">
+              <span>创作者 · 陆行舟</span>
+              <span>时长 12:04</span>
+              <span>热度 48.2 万</span>
+            </div>
+          </div>
+        </article>
+        <div class="twc-focus-side">
+          <article class="twc-focus-side-item">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232a2036'/%3E%3Ccircle cx='300' cy='80' r='60' fill='%23ff8866' opacity='.35'/%3E%3Cpath d='M0 210q100-60 200 0t200 0v90H0z' fill='%23442a44'/%3E%3Cpath d='M0 244q100-40 200 10t200-6v52H0z' fill='%231c1626'/%3E%3Crect x='40' y='60' width='90' height='10' rx='5' fill='%23e8eef5' opacity='.6'/%3E%3Crect x='40' y='82' width='140' height='7' rx='3.5' fill='%23e8eef5' opacity='.35'/%3E%3C/svg%3E" alt="人物访谈短片《对话手艺人》封面">
+            <div class="twc-cover-mask"></div>
+            <div class="twc-focus-side-body">
+              <h4>对话手艺人：一把刻刀与三十年的耐心</h4>
+              <small>人物访谈 · 时长 18:40</small>
+            </div>
+          </article>
+          <article class="twc-focus-side-item">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%2312262b'/%3E%3Cg stroke='%234de1c1' stroke-opacity='.4' fill='none' stroke-width='1.5'%3E%3Cpath d='M0 180q80-70 160-20t240-40'/%3E%3Cpath d='M0 220q80-70 160-20t240-40'/%3E%3Cpath d='M0 260q80-70 160-20t240-40'/%3E%3C/g%3E%3Ccircle cx='110' cy='90' r='34' fill='%234de1c1' opacity='.28'/%3E%3Crect x='40' y='230' width='110' height='9' rx='4.5' fill='%23e8eef5' opacity='.55'/%3E%3C/svg%3E" alt="实验短片《声音地图》封面">
+            <div class="twc-cover-mask"></div>
+            <div class="twc-focus-side-body">
+              <h4>声音地图：用环境音重建一条老街的记忆</h4>
+              <small>声音实验 · 时长 09:26</small>
+            </div>
+          </article>
+          <article class="twc-focus-side-item">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23302622'/%3E%3Ccircle cx='90' cy='220' r='90' fill='%23ffb347' opacity='.2'/%3E%3Cpath d='M0 240h400v60H0z' fill='%231a1411'/%3E%3Cg fill='%23e8eef5' opacity='.5'%3E%3Crect x='220' y='70' width='120' height='10' rx='5'/%3E%3Crect x='220' y='94' width='80' height='7' rx='3.5'/%3E%3C/g%3E%3Cg transform='translate(60 120)'%3E%3Crect width='100' height='64' rx='6' fill='%230d0f12' opacity='.8' stroke='%23ffb347' stroke-opacity='.5'/%3E%3Cpath d='M42 20l24 12-24 12z' fill='%23ffb347'/%3E%3C/g%3E%3C/svg%3E" alt="美食纪录短片《深夜食堂的一碗面》封面">
+            <div class="twc-cover-mask"></div>
+            <div class="twc-focus-side-body">
+              <h4>一碗面的时间：深夜食堂里被守住的老味道</h4>
+              <small>美食纪录 · 时长 14:12</small>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 热门视频流 ===== -->
+  <section class="twc-section twc-section-alt" id="twc-videos">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">热门作品</span>
+          <h2 class="twc-h2">社区正在观看的<em>原创短片</em></h2>
+          <p class="twc-sec-desc">按题材筛选，感受不同创作者对同一主题的理解方式。</p>
+        </div>
+      </div>
+      <div class="twc-filter-bar" id="twcFilterBar">
+        <button class="twc-filter is-active" type="button" data-twc-filter="all">全部</button>
+        <button class="twc-filter" type="button" data-twc-filter="城市">城市探索</button>
+        <button class="twc-filter" type="button" data-twc-filter="人物">人物访谈</button>
+        <button class="twc-filter" type="button" data-twc-filter="技巧">教程干货</button>
+        <button class="twc-filter" type="button" data-twc-filter="品牌">品牌短片</button>
+        <button class="twc-filter" type="button" data-twc-filter="生活">生活方式</button>
+      </div>
+      <div class="twc-video-grid" id="twcVideoGrid">
+
+        <article class="twc-video-card" data-twc-cat="城市">
+          <div class="twc-thumb">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23172230'/%3E%3Cg fill='%232b3c50'%3E%3Crect x='30' y='120' width='60' height='150'/%3E%3Crect x='102' y='70' width='54' height='200'/%3E%3Crect x='168' y='140' width='68' height='130'/%3E%3Crect x='248' y='96' width='50' height='174'/%3E%3Crect x='310' y='150' width='64' height='120'/%3E%3Crect x='386' y='110' width='56' height='160'/%3E%3C/g%3E%3Cg fill='%23ffd56b' opacity='.7'%3E%3Crect x='114' y='90' width='8' height='8'/%3E%3Crect x='130' y='110' width='8' height='8'/%3E%3Crect x='260' y='116' width='8' height='8'/%3E%3Crect x='398' y='130' width='8' height='8'/%3E%3C/g%3E%3Ccircle cx='400' cy='60' r='30' fill='%23ff8866' opacity='.35'/%3E%3Crect y='240' width='480' height='30' fill='%230c131b'/%3E%3C/svg%3E" alt="城市探索短片《天桥之上》封面">
+            <span class="twc-chip">城市探索</span>
+            <span class="twc-duration">11:32</span>
+          </div>
+          <div class="twc-card-body">
+            <h3>天桥之上：七位路人的九分钟独白</h3>
+            <p>摄影师在天桥上架起机位，邀请路人聊聊此刻的心情，意外记录下城市里最真实的一段对话。</p>
+            <div class="twc-card-foot">
+              <span class="twc-author"><span class="twc-avatar" style="background:#3f6ea8">沈</span>沈拾光</span>
+              <div class="twc-actions">
+                <button class="twc-action" type="button" data-twc-like><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg><span data-twc-like-num>1284</span></button>
+                <button class="twc-action" type="button" data-twc-save><svg viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="twc-video-card" data-twc-cat="人物">
+          <div class="twc-thumb">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%2324202c'/%3E%3Ccircle cx='240' cy='118' r='62' fill='%23c98b6b' opacity='.42'/%3E%3Cpath d='M150 270q10-80 90-80t90 80z' fill='%234a3a4f'/%3E%3Crect x='196' y='96' width='88' height='14' rx='7' fill='%23ffb9a0' opacity='.55'/%3E%3Crect x='150' y='222' width='180' height='8' rx='4' fill='%23e8eef5' opacity='.28'/%3E%3Crect x='150' y='240' width='120' height='6' rx='3' fill='%23e8eef5' opacity='.18'/%3E%3C/svg%3E" alt="人物访谈短片《镜头背后的父亲》封面">
+            <span class="twc-chip is-teal">人物访谈</span>
+            <span class="twc-duration">16:48</span>
+          </div>
+          <div class="twc-card-body">
+            <h3>镜头背后的父亲：他终于讲起年轻时的遗憾</h3>
+            <p>一位年轻导演把镜头对准自己的父亲，用一次长达三小时的聊天，完成了一场迟到的理解。</p>
+            <div class="twc-card-foot">
+              <span class="twc-author"><span class="twc-avatar" style="background:#8a5a44">陈</span>陈叙白</span>
+              <div class="twc-actions">
+                <button class="twc-action" type="button" data-twc-like><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg><span data-twc-like-num>2361</span></button>
+                <button class="twc-action" type="button" data-twc-save><svg viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="twc-video-card" data-twc-cat="技巧">
+          <div class="twc-thumb">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23101e24'/%3E%3Cg stroke='%234de1c1' stroke-opacity='.55' fill='none' stroke-width='2'%3E%3Crect x='60' y='60' width='150' height='90' rx='8'/%3E%3Crect x='250' y='110' width='150' height='90' rx='8'/%3E%3Cpath d='M210 105h40l20 20'/%3E%3C/g%3E%3Crect x='82' y='84' width='90' height='7' rx='3.5' fill='%23e8eef5' opacity='.5'/%3E%3Crect x='82' y='102' width='60' height='7' rx='3.5' fill='%23e8eef5' opacity='.3'/%3E%3Crect x='272' y='134' width='90' height='7' rx='3.5' fill='%234de1c1' opacity='.6'/%3E%3Cpath d='M60 220h360' stroke='%23334a55' stroke-width='2' stroke-dasharray='8 8'/%3E%3C/svg%3E" alt="剪辑教程《三分钟学会匹配剪辑》封面">
+            <span class="twc-chip is-teal">教程干货</span>
+            <span class="twc-duration">08:15</span>
+          </div>
+          <div class="twc-card-body">
+            <h3>三分钟学会匹配剪辑：让转场不再是硬切</h3>
+            <p>用六个实拍案例拆解匹配剪辑的判断逻辑，附赠可直接套用的剪辑节奏表，新手也能跟着做。</p>
+            <div class="twc-card-foot">
+              <span class="twc-author"><span class="twc-avatar" style="background:#2f7d6b">林</span>林间剪辑</span>
+              <div class="twc-actions">
+                <button class="twc-action" type="button" data-twc-like><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg><span data-twc-like-num>3902</span></button>
+                <button class="twc-action" type="button" data-twc-save><svg viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="twc-video-card" data-twc-cat="品牌">
+          <div class="twc-thumb">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%2322202b'/%3E%3Crect x='120' y='50' width='240' height='170' rx='10' fill='%231a1820' stroke='%23ff4d5e' stroke-opacity='.55'/%3E%3Ccircle cx='240' cy='120' r='34' fill='%23ff4d5e' opacity='.3'/%3E%3Cpath d='M228 104l26 16-26 16z' fill='%23ff9aa5'/%3E%3Crect x='150' y='182' width='180' height='7' rx='3.5' fill='%23e8eef5' opacity='.4'/%3E%3Crect x='60' y='240' width='360' height='4' rx='2' fill='%233d3140'/%3E%3C/svg%3E" alt="品牌短片《一件衣服的三十天》封面">
+            <span class="twc-chip">品牌短片</span>
+            <span class="twc-duration">13:06</span>
+          </div>
+          <div class="twc-card-body">
+            <h3>一件衣服的三十天：从面料到衣柜的完整旅程</h3>
+            <p>品牌命题共创作品，用三十天跟拍一件衣服的生命周期，把可持续议题讲得具体而不说教。</p>
+            <div class="twc-card-foot">
+              <span class="twc-author"><span class="twc-avatar" style="background:#b04a5a">周</span>周原影像</span>
+              <div class="twc-actions">
+                <button class="twc-action" type="button" data-twc-like><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg><span data-twc-like-num>1755</span></button>
+                <button class="twc-action" type="button" data-twc-save><svg viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="twc-video-card" data-twc-cat="生活">
+          <div class="twc-thumb">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23332a22'/%3E%3Ccircle cx='150' cy='80' r='46' fill='%23ffcf7a' opacity='.3'/%3E%3Cpath d='M0 190q120-50 240 0t240 0v80H0z' fill='%23433026'/%3E%3Cg stroke='%23ffb347' stroke-opacity='.45' fill='none' stroke-width='2'%3E%3Cpath d='M300 60q40 40 0 90'/%3E%3Cpath d='M322 60q40 40 0 90'/%3E%3C/g%3E%3Crect x='60' y='204' width='130' height='9' rx='4.5' fill='%23e8eef5' opacity='.45'/%3E%3C/svg%3E" alt="生活方式短片《周末的面包房》封面">
+            <span class="twc-chip is-teal">生活方式</span>
+            <span class="twc-duration">10:44</span>
+          </div>
+          <div class="twc-card-body">
+            <h3>周末的面包房：五点起床的人如何度过一天</h3>
+            <p>没有台词，只有揉面声、烤箱提示音与清晨街道。一部关于重复劳作的温柔纪录短片。</p>
+            <div class="twc-card-foot">
+              <span class="twc-author"><span class="twc-avatar" style="background:#a06a3c">许</span>许小满</span>
+              <div class="twc-actions">
+                <button class="twc-action" type="button" data-twc-like><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg><span data-twc-like-num>2648</span></button>
+                <button class="twc-action" type="button" data-twc-save><svg viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="twc-video-card" data-twc-cat="城市">
+          <div class="twc-thumb">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%231a2430'/%3E%3Cg stroke='%238fb0cc' stroke-opacity='.5' fill='none' stroke-width='1.6'%3E%3Cpath d='M0 90h480'/%3E%3Cpath d='M0 150h480'/%3E%3Cpath d='M0 210h480'/%3E%3Cpath d='M120 0v270'/%3E%3Cpath d='M300 0v270'/%3E%3C/g%3E%3Ccircle cx='210' cy='150' r='46' fill='%234de1c1' opacity='.22'/%3E%3Crect x='40' y='40' width='120' height='9' rx='4.5' fill='%23e8eef5' opacity='.5'/%3E%3Crect x='40' y='60' width='80' height='7' rx='3.5' fill='%23e8eef5' opacity='.3'/%3E%3C/svg%3E" alt="城市探索短片《地铁末班车》封面">
+            <span class="twc-chip">城市探索</span>
+            <span class="twc-duration">12:58</span>
+          </div>
+          <div class="twc-card-body">
+            <h3>地铁末班车：和十位夜归人一起到终点站</h3>
+            <p>从起点坐到终点，用一节车厢的空间，观察城市在深夜如何慢慢卸下白天的疲惫。</p>
+            <div class="twc-card-foot">
+              <span class="twc-author"><span class="twc-avatar" style="background:#3a5f8a">顾</span>顾长夜</span>
+              <div class="twc-actions">
+                <button class="twc-action" type="button" data-twc-like><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg><span data-twc-like-num>1893</span></button>
+                <button class="twc-action" type="button" data-twc-save><svg viewBox="0 0 24 24"><path d="M6 4h12v17l-6-4-6 4z"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 赛事专题 ===== -->
+  <section class="twc-section" id="twc-topics">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">赛事专题</span>
+          <h2 class="twc-h2">正在进行的<em>赛事企划</em></h2>
+          <p class="twc-sec-desc">每个专题都有明确命题与提交规范，报名与投稿均在本官网完成。</p>
+        </div>
+      </div>
+      <div class="twc-topic-grid">
+        <article class="twc-topic">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%2320162a'/%3E%3Cg fill='%23ff4d5e' opacity='.22'%3E%3Ccircle cx='120' cy='80' r='54'/%3E%3Ccircle cx='340' cy='180' r='70'/%3E%3C/g%3E%3Cpath d='M0 210q120-70 240-10t240-30v100H0z' fill='%23120d1a'/%3E%3Cg stroke='%23ff9aa5' stroke-width='2' fill='none' opacity='.7'%3E%3Crect x='190' y='96' width='100' height='64' rx='7'/%3E%3Cpath d='M228 118l26 14-26 14z' fill='%23ff9aa5' stroke='none'/%3E%3C/g%3E%3C/svg%3E" alt="冬季影像挑战赛专题封面">
+          <div class="twc-topic-body">
+            <h3>2026 冬季影像挑战赛</h3>
+            <p>主题「真实一刻」，鼓励创作者用不摆拍的方式记录生活中的决定性瞬间，时长 3–15 分钟。</p>
+            <div class="twc-topic-state">
+              <span class="twc-state-dot"><i></i>报名中 · 12/20 截稿</span>
+              <span>已投稿 2864 件</span>
+            </div>
+          </div>
+        </article>
+        <article class="twc-topic">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23122328'/%3E%3Cg stroke='%234de1c1' stroke-opacity='.4' fill='none' stroke-width='1.5'%3E%3Ccircle cx='240' cy='135' r='60'/%3E%3Ccircle cx='240' cy='135' r='96'/%3E%3Ccircle cx='240' cy='135' r='132'/%3E%3C/g%3E%3Ccircle cx='240' cy='135' r='22' fill='%234de1c1' opacity='.5'/%3E%3Crect x='40' y='50' width='110' height='8' rx='4' fill='%23e8eef5' opacity='.45'/%3E%3C/svg%3E" alt="城市夜行影像企划专题封面">
+          <div class="twc-topic-body">
+            <h3>城市夜行 · 夜拍影像企划</h3>
+            <p>面向街拍与夜景创作者，提供低光拍摄技巧包与设备建议，优秀作品将进入线下展映。</p>
+            <div class="twc-topic-state">
+              <span class="twc-state-dot"><i></i>征集中 · 12/05 截止</span>
+              <span>已投稿 1247 件</span>
+            </div>
+          </div>
+        </article>
+        <article class="twc-topic">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%232a2418'/%3E%3Cg fill='%23ffcf7a' opacity='.28'%3E%3Crect x='70' y='70' width='140' height='100' rx='8'/%3E%3Crect x='250' y='110' width='150' height='100' rx='8'/%3E%3C/g%3E%3Cg stroke='%23ffcf7a' stroke-opacity='.6' fill='none' stroke-width='1.6'%3E%3Cpath d='M210 120h40M210 140h40'/%3E%3C/g%3E%3Crect x='90' y='92' width='90' height='7' rx='3.5' fill='%23fff3d6' opacity='.6'/%3E%3Crect x='270' y='132' width='92' height='7' rx='3.5' fill='%23fff3d6' opacity='.5'/%3E%3C/svg%3E" alt="品牌短片共创计划专题封面">
+          <div class="twc-topic-body">
+            <h3>品牌短片共创计划 · 第三季</h3>
+            <p>联合多家品牌发布命题任务，创作者可自由选择命题投稿，入选作品获得制作支持与官方发布。</p>
+            <div class="twc-topic-state">
+              <span class="twc-state-dot is-done"><i></i>评审中 · 11/30 公示</span>
+              <span>已投稿 968 件</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 创作者矩阵 ===== -->
+  <section class="twc-section twc-section-alt" id="twc-creators">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">创作者矩阵</span>
+          <h2 class="twc-h2">与平台共同成长的<em>创作者</em></h2>
+          <p class="twc-sec-desc">他们来自不同背景，却都在用镜头认真回答同一件事：如何真实地表达。</p>
+        </div>
+      </div>
+      <div class="twc-creator-grid">
+        <article class="twc-creator">
+          <div class="twc-creator-top">
+            <span class="twc-creator-avatar" style="background:linear-gradient(140deg,#3f6ea8,#244a75)">沈</span>
+            <div>
+              <h3>沈拾光</h3>
+              <small>城市纪录 · 叙事短片</small>
+            </div>
+          </div>
+          <p>长期关注城市公共空间与陌生人之间的短暂交集，擅长用固定机位与自然声构建观察式影像。</p>
+          <div class="twc-creator-nums">
+            <span><b>86</b>作品</span>
+            <span><b>12.4万</b>关注</span>
+          </div>
+          <button class="twc-creator-btn" type="button" data-twc-author="沈拾光|城市纪录与叙事短片创作者，代表作《天桥之上》《凌晨四点的便利店》。擅长观察式影像与自然声设计，连续三期进入终审名单。">查看档案</button>
+        </article>
+        <article class="twc-creator">
+          <div class="twc-creator-top">
+            <span class="twc-creator-avatar" style="background:linear-gradient(140deg,#8a5a44,#5f3a2c)">陈</span>
+            <div>
+              <h3>陈叙白</h3>
+              <small>人物访谈 · 家庭影像</small>
+            </div>
+          </div>
+          <p>以家人为起点拍摄人物纪录，相信最难的采访对象往往离自己最近，作品常带有克制的情绪浓度。</p>
+          <div class="twc-creator-nums">
+            <span><b>42</b>作品</span>
+            <span><b>8.9万</b>关注</span>
+          </div>
+          <button class="twc-creator-btn" type="button" data-twc-author="陈叙白|人物访谈创作者，擅长家庭题材与长时段跟拍，代表作《镜头背后的父亲》《母亲的三本相册》。">查看档案</button>
+        </article>
+        <article class="twc-creator">
+          <div class="twc-creator-top">
+            <span class="twc-creator-avatar" style="background:linear-gradient(140deg,#2f7d6b,#1e5548)">林</span>
+            <div>
+              <h3>林间剪辑</h3>
+              <small>教程干货 · 剪辑方法</small>
+            </div>
+          </div>
+          <p>前广告剪辑师，现专注制作面向新手的剪辑教学，强调方法可复用、案例可跟做、节奏可量化。</p>
+          <div class="twc-creator-nums">
+            <span><b>118</b>作品</span>
+            <span><b>21.6万</b>关注</span>
+          </div>
+          <button class="twc-creator-btn" type="button" data-twc-author="林间剪辑|剪辑教学创作者，前广告剪辑师，擅长把复杂技巧拆解为可执行步骤，代表作《三分钟学会匹配剪辑》系列。">查看档案</button>
+        </article>
+        <article class="twc-creator">
+          <div class="twc-creator-top">
+            <span class="twc-creator-avatar" style="background:linear-gradient(140deg,#b04a5a,#7d2f3c)">周</span>
+            <div>
+              <h3>周原影像</h3>
+              <small>品牌短片 · 商业叙事</small>
+            </div>
+          </div>
+          <p>专注品牌命题创作，擅长把产品信息转化为可被感知的故事，作品多次获得品牌方年度推荐。</p>
+          <div class="twc-creator-nums">
+            <span><b>64</b>作品</span>
+            <span><b>9.7万</b>关注</span>
+          </div>
+          <button class="twc-creator-btn" type="button" data-twc-author="周原影像|品牌短片创作者，服务过多家消费与制造品牌，主张让产品信息自然生长在故事里，代表作《一件衣服的三十天》。">查看档案</button>
+        </article>
+        <article class="twc-creator">
+          <div class="twc-creator-top">
+            <span class="twc-creator-avatar" style="background:linear-gradient(140deg,#a06a3c,#6f4626)">许</span>
+            <div>
+              <h3>许小满</h3>
+              <small>生活方式 · 治愈影像</small>
+            </div>
+          </div>
+          <p>用手持镜头记录日常小事，认为平淡本身就有力量，视频里常出现厨房、街道和清晨的光。</p>
+          <div class="twc-creator-nums">
+            <span><b>97</b>作品</span>
+            <span><b>15.2万</b>关注</span>
+          </div>
+          <button class="twc-creator-btn" type="button" data-twc-author="许小满|生活方式创作者，专注日常记录与治愈系影像，代表作《周末的面包房》《一个人的晚饭》。">查看档案</button>
+        </article>
+        <article class="twc-creator">
+          <div class="twc-creator-top">
+            <span class="twc-creator-avatar" style="background:linear-gradient(140deg,#5b4a8a,#3b2f63)">顾</span>
+            <div>
+              <h3>顾长夜</h3>
+              <small>夜拍 · 城市漫游</small>
+            </div>
+          </div>
+          <p>专注夜间拍摄与低光影像，常用一镜到底记录通勤路线，作品节奏缓慢却极具沉浸感。</p>
+          <div class="twc-creator-nums">
+            <span><b>38</b>作品</span>
+            <span><b>6.3万</b>关注</span>
+          </div>
+          <button class="twc-creator-btn" type="button" data-twc-author="顾长夜|夜拍与城市漫游创作者，擅长低光环境拍摄与一镜到底，代表作《地铁末班车》。">查看档案</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 作品墙 ===== -->
+  <section class="twc-section">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">影像墙</span>
+          <h2 class="twc-h2">来自社区的<em>一帧一刻</em></h2>
+          <p class="twc-sec-desc">每一张封面背后，都是一次完整的创作实践。</p>
+        </div>
+      </div>
+      <div class="twc-wall">
+        <figure class="twc-wall-item is-big">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%23161e2a'/%3E%3Ccircle cx='300' cy='230' r='120' fill='%23ff4d5e' opacity='.18'/%3E%3Cpath d='M0 400q150-120 300-30t300-60v290H0z' fill='%23223347'/%3E%3Cpath d='M0 470q150-90 300-10t300-40v180H0z' fill='%230e1620'/%3E%3Cg fill='%23ffd56b' opacity='.7'%3E%3Ccircle cx='130' cy='130' r='4'/%3E%3Ccircle cx='180' cy='96' r='3'/%3E%3Ccircle cx='430' cy='150' r='4'/%3E%3Ccircle cx='470' cy='110' r='3'/%3E%3C/g%3E%3C/svg%3E" alt="夜景短片《灯火边缘》影像墙作品">
+          <figcaption class="twc-wall-cap">灯火边缘 · 顾长夜</figcaption>
+        </figure>
+        <figure class="twc-wall-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23332a1e'/%3E%3Ccircle cx='150' cy='120' r='64' fill='%23ffcf7a' opacity='.3'/%3E%3Cpath d='M0 220h300v80H0z' fill='%231e1811'/%3E%3Crect x='40' y='240' width='90' height='8' rx='4' fill='%23e8eef5' opacity='.4'/%3E%3C/svg%3E" alt="美食短片《一碗热汤》影像墙作品">
+          <figcaption class="twc-wall-cap">一碗热汤 · 许小满</figcaption>
+        </figure>
+        <figure class="twc-wall-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%2312262b'/%3E%3Cg stroke='%234de1c1' stroke-opacity='.5' fill='none' stroke-width='1.6'%3E%3Cpath d='M0 160q75-50 150-10t150-20'/%3E%3Cpath d='M0 200q75-50 150-10t150-20'/%3E%3C/g%3E%3Ccircle cx='220' cy='80' r='34' fill='%234de1c1' opacity='.24'/%3E%3C/svg%3E" alt="声音实验《回响》影像墙作品">
+          <figcaption class="twc-wall-cap">回响 · 林间剪辑</figcaption>
+        </figure>
+        <figure class="twc-wall-item is-wide">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300'%3E%3Crect width='600' height='300' fill='%23241e2e'/%3E%3Cg fill='%23c98bb0' opacity='.25'%3E%3Crect x='60' y='60' width='130' height='180' rx='10'/%3E%3Crect x='230' y='90' width='130' height='150' rx='10'/%3E%3Crect x='400' y='50' width='140' height='190' rx='10'/%3E%3C/g%3E%3Cpath d='M0 260h600v40H0z' fill='%23140f1b'/%3E%3C/svg%3E" alt="访谈合集《她的一天》影像墙作品">
+          <figcaption class="twc-wall-cap">她的一天 · 陈叙白</figcaption>
+        </figure>
+        <figure class="twc-wall-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%231b2431'/%3E%3Crect x='40' y='150' width='50' height='150' fill='%232c3d52'/%3E%3Crect x='110' y='100' width='60' height='200' fill='%23374a60'/%3E%3Crect x='190' y='170' width='70' height='130' fill='%23223042'/%3E%3Ccircle cx='240' cy='70' r='26' fill='%23ff8866' opacity='.4'/%3E%3C/svg%3E" alt="城市短片《街角的三分钟》影像墙作品">
+          <figcaption class="twc-wall-cap">街角的三分钟 · 沈拾光</figcaption>
+        </figure>
+        <figure class="twc-wall-item">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%232a1e1e'/%3E%3Crect x='60' y='60' width='180' height='120' rx='8' fill='%230e0b0b' stroke='%23ff4d5e' stroke-opacity='.5'/%3E%3Cpath d='M132 96l44 24-44 24z' fill='%23ff8a94'/%3E%3Crect x='60' y='210' width='120' height='8' rx='4' fill='%23e8eef5' opacity='.4'/%3E%3C/svg%3E" alt="品牌短片《慢一点》影像墙作品">
+          <figcaption class="twc-wall-cap">慢一点 · 周原影像</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 用户评价 ===== -->
+  <section class="twc-section twc-section-alt">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">用户评价</span>
+          <h2 class="twc-h2">创作者怎么评价<em>这个社区</em></h2>
+          <p class="twc-sec-desc">来自不同阶段创作者的真实反馈，不美化，也不回避问题。</p>
+        </div>
+      </div>
+      <div class="twc-review-grid">
+        <article class="twc-review">
+          <p>第一次投稿其实是抱着试试看的心态，结果收到了两条很具体的评审意见，指出我的收音有环境噪声、开场三秒信息不足。这种反馈比名次更有价值。</p>
+          <div class="twc-review-foot">
+            <span class="twc-avatar" style="background:#3f6ea8">阿</span>
+            <div><b>阿岚</b><small>新人创作者 · 参赛 2 期</small></div>
+          </div>
+        </article>
+        <article class="twc-review">
+          <p>平台的审核节奏很稳，公示时间说几天就是几天，不会突然改规则。对于要安排拍摄档期的人来说，这种确定性非常重要。</p>
+          <div class="twc-review-foot">
+            <span class="twc-avatar" style="background:#2f7d6b">老</span>
+            <div><b>老庄</b><small>独立导演 · 参赛 11 期</small></div>
+          </div>
+        </article>
+        <article class="twc-review">
+          <p>我是品牌方，通过这个平台发起过一次命题征集。最直接的感受是投稿质量比预想中稳定，而且创作者会认真读命题说明，不会交一堆同质化内容。</p>
+          <div class="twc-review-foot">
+            <span class="twc-avatar" style="background:#b04a5a">李</span>
+            <div><b>李经理</b><small>消费品牌市场部</small></div>
+          </div>
+        </article>
+        <article class="twc-review">
+          <p>剪辑教程那部分对我帮助最大，尤其是拆解节奏的方法，直接让我改掉了字幕堆太满的毛病。就是希望能再多更新几期竖屏叙事的内容。</p>
+          <div class="twc-review-foot">
+            <span class="twc-avatar" style="background:#a06a3c">小</span>
+            <div><b>小林同学</b><small>影视专业学生</small></div>
+          </div>
+        </article>
+        <article class="twc-review">
+          <p>社区互评氛围不错，基本没有人身攻击，大家讨论的是镜头、声音、结构。有次我发了一版粗剪，收到了七条建议，其中三条直接用上了。</p>
+          <div class="twc-review-foot">
+            <span class="twc-avatar" style="background:#5b4a8a">周</span>
+            <div><b>周周</b><small>自由摄影师 · 参赛 6 期</small></div>
+          </div>
+        </article>
+        <article class="twc-review">
+          <p>唯一的建议是希望增加更多跨地区联动的线下放映，线上看和在大屏幕上看，感受完全不一样。整体来说，这是我目前最愿意长期参与的一个赛事平台。</p>
+          <div class="twc-review-foot">
+            <span class="twc-avatar" style="background:#8a5a44">木</span>
+            <div><b>木子</b><small>纪录片爱好者 · 参赛 4 期</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 企业动态 ===== -->
+  <section class="twc-section" id="twc-news">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">企业动态</span>
+          <h2 class="twc-h2">官方发布与<em>更新日志</em></h2>
+          <p class="twc-sec-desc">赛事安排、规则调整与平台功能更新，均在此栏目统一发布。</p>
+        </div>
+      </div>
+      <div class="twc-news-list">
+        <a class="twc-news-item" href="#twc-cta">
+          <span class="twc-news-date">2026-11-17</span>
+          <span>
+            <h3>2026 冬季影像挑战赛报名通道正式开启</h3>
+            <p>三大赛道同步开放，新增“真实一刻”命题，评审标准与提交规范已在官网公示。</p>
+          </span>
+          <span class="twc-news-type">官方发布</span>
+        </a>
+        <a class="twc-news-item" href="#twc-videos">
+          <span class="twc-news-date">2026-11-09</span>
+          <span>
+            <h3>作品库检索功能更新：支持按摄影机位与时长筛选</h3>
+            <p>新增两个筛选维度，帮助创作者更精准地研究同类题材的表达方式。</p>
+          </span>
+          <span class="twc-news-type">功能更新</span>
+        </a>
+        <a class="twc-news-item" href="#twc-topics">
+          <span class="twc-news-date">2026-10-28</span>
+          <span>
+            <h3>品牌短片共创计划第三季命题公布</h3>
+            <p>四家合作品牌发布年度命题，创作者可自由选择，入选作品将获得制作支持。</p>
+          </span>
+          <span class="twc-news-type">合作动态</span>
+        </a>
+        <a class="twc-news-item" href="#twc-creators">
+          <span class="twc-news-date">2026-10-15</span>
+          <span>
+            <h3>新人扶持计划升级：新增创作津贴与导师对接</h3>
+            <p>面向首次参赛且进入复评的创作者，提供小额制作津贴与一对一创作沟通机会。</p>
+          </span>
+          <span class="twc-news-type">平台公告</span>
+        </a>
+        <a class="twc-news-item" href="#twc-faq">
+          <span class="twc-news-date">2026-09-30</span>
+          <span>
+            <h3>暑期赛事终审结果公示，共 62 件作品入选</h3>
+            <p>完整评分表与评委点评已开放查阅，作品版权归属说明同步更新。</p>
+          </span>
+          <span class="twc-news-type">结果公示</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 合作品牌 ===== -->
+  <section class="twc-section twc-section-alt">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">合作伙伴</span>
+          <h2 class="twc-h2">与我们一起完成表达的<em>品牌</em></h2>
+          <p class="twc-sec-desc">感谢这些企业与合作方对本平台内容生态的长期支持。</p>
+        </div>
+      </div>
+      <div class="twc-partner-grid">
+        <div class="twc-partner">晨光影像</div>
+        <div class="twc-partner">南山制片</div>
+        <div class="twc-partner">拾野户外</div>
+        <div class="twc-partner">木棉工作室</div>
+        <div class="twc-partner">潮声唱片</div>
+        <div class="twc-partner">行间灯具</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="twc-section" id="twc-faq">
+    <div class="twc-wrap">
+      <div class="twc-sec-head">
+        <div>
+          <span class="twc-eyebrow">帮助中心</span>
+          <h2 class="twc-h2">关于参赛与投稿的<em>常见问题</em></h2>
+          <p class="twc-sec-desc">若以下内容未覆盖你的疑问，可通过页面底部的联系方式与我们沟通。</p>
+        </div>
+      </div>
+      <div class="twc-faq">
+        <details open>
+          <summary>如何报名参加正在进行的赛事？</summary>
+          <div class="twc-faq-body">在首页“赛事专题”中选择对应命题，点击报名按钮填写创作者信息与作品方向，提交后即可获得投稿编号。报名不收取任何费用，同一创作者可同时参与多个不同赛道，但同一作品不可重复投递。</div>
+        </details>
+        <details>
+          <summary>对作品时长与格式有什么要求？</summary>
+          <div class="twc-faq-body">常规赛道作品时长要求为 3 至 15 分钟，分辨率不低于 1080P，横竖屏均可。声音实验与竖屏叙事专题另有单独规范，具体以对应专题页的提交说明为准，建议投稿前通读规则，避免因格式问题被退回。</div>
+        </details>
+        <details>
+          <summary>评审流程是怎样的，结果何时公布？</summary>
+          <div class="twc-faq-body">评审分为初评、复评与终评三轮。初评由平台编辑部完成，主要核查作品完整性与命题契合度；复评由行业评审团打分，权重与维度提前公示；终评由特邀评委复议并给出书面意见。通常截稿后 20 个工作日内完成公示。</div>
+        </details>
+        <details>
+          <summary>作品的版权归谁？平台会如何使用？</summary>
+          <div class="twc-faq-body">作品版权始终归创作者所有。投稿即视为授权平台在官网及相关展映活动中非商业性展示，如需用于商业合作，我们会单独与创作者签署授权协议并明确权益分配，不会默认进行任何商业用途。</div>
+        </details>
+        <details>
+          <summary>没有专业设备可以参赛吗？</summary>
+          <div class="twc-faq-body">完全可以。评审更关注命题表达是否清晰、叙事是否完整，而非设备成本。往期获奖作品中，有相当比例使用手机完成拍摄。我们建议把精力放在前期观察与后期结构上，设备只是工具。</div>
+        </details>
+        <details>
+          <summary>新人创作者能获得什么支持？</summary>
+          <div class="twc-faq-body">首次参赛并进入复评的创作者可申请新人扶持，包括小额制作津贴、创作导师对接以及作品解析推送机会。此外，官网的“教程干货”与往期评审意见均对所有人开放，可作为创作准备阶段的参考资料。</div>
+        </details>
+        <details>
+          <summary>品牌或企业如何发起命题合作？</summary>
+          <div class="twc-faq-body">可通过页面底部的联系邮箱说明命题方向、预算范围与期望产出，我们会在 3 个工作日内回复。合作形式包括命题短片征集、内容共创与展映联动，具体方案根据品牌诉求定制。</div>
+        </details>
+        <details>
+          <summary>如何举报不当内容或违规投稿？</summary>
+          <div class="twc-faq-body">每张作品卡片与创作者档案均提供反馈入口，也可直接邮件说明具体情况。我们承诺在收到反馈后 48 小时内完成初步核查，涉及版权争议的内容会先下架再调查，处理结果通过站内消息通知双方。</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 联系 / 投稿 ===== -->
+  <section class="twc-section twc-cta" id="twc-cta">
+    <div class="twc-wrap twc-cta-inner">
+      <div>
+        <span class="twc-eyebrow">投稿与合作</span>
+        <h2>把你的作品交给一个<br>认真对待影像的赛事平台</h2>
+        <p>无论你是刚拿起相机的学生，还是已有代表作的独立导演，推特大赛在线都欢迎你用作品说话。报名、投稿、咨询均可通过本页完成。</p>
+        <ul class="twc-cta-info">
+          <li><b>投稿邮箱</b><span>submit@twsai-contest.example</span></li>
+          <li><b>合作咨询</b><span>partner@twsai-contest.example</span></li>
+          <li><b>工作时间</b><span>周一至周五 10:00–19:00（法定节假日除外）</span></li>
+          <li><b>办公地址</b><span>创意产业园 7 号楼 3 层 影像赛事运营中心</span></li>
+        </ul>
+      </div>
+      <div class="twc-cta-card">
+        <h3>快速报名登记</h3>
+        <form id="twcSignupForm">
+          <div class="twc-field">
+            <label for="twcName">创作者昵称</label>
+            <input id="twcName" type="text" placeholder="请输入你的昵称" required>
+          </div>
+          <div class="twc-field">
+            <label for="twcTrack">意向赛道</label>
+            <select id="twcTrack">
+              <option>城市夜行赛道</option>
+              <option>真实一刻赛道</option>
+              <option>品牌短片赛道</option>
+              <option>声音实验赛道</option>
+            </select>
+          </div>
+          <div class="twc-field">
+            <label for="twcContact">联系方式</label>
+            <input id="twcContact" type="text" placeholder="邮箱或社交账号" required>
+          </div>
+          <button class="twc-btn twc-btn-primary" type="submit" style="width:100%;padding:11px;">提交报名意向</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="twc-footer">
+  <div class="twc-wrap">
+    <div class="twc-footer-grid">
+      <div>
+        <div class="twc-footer-brand">
+          <span class="twc-brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l12 7-12 7z" fill="#fff"/></svg></span>
+          <b>推特大赛在线</b>
+        </div>
+        <p>推特大赛在线官方网站，专注原创影像赛事与企业内容共创，深耕短视频赛事这一垂直领域，持续运营内容生态与创作者社区。</p>
+        <p style="margin-top:10px;color:#5f7086;">官方网站 · 企业级赛事运营 · 原创精品内容</p>
+      </div>
+      <div>
+        <h4>快速导航</h4>
+        <ul>
+          <li><a href="#twc-about">品牌解析</a></li>
+          <li><a href="#twc-focus">焦点影像</a></li>
+          <li><a href="#twc-videos">热门作品</a></li>
+          <li><a href="#twc-topics">赛事专题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>参与方式</h4>
+        <ul>
+          <li><a href="#twc-cta">赛事报名</a></li>
+          <li><a href="#twc-cta">作品投稿</a></li>
+          <li><a href="#twc-creators">创作者档案</a></li>
+          <li><a href="#twc-faq">帮助中心</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>关注动态</h4>
+        <ul>
+          <li><a href="#twc-news">企业动态</a></li>
+          <li><a href="#twc-news">结果公示</a></li>
+          <li><a href="#twc-cta">合作咨询</a></li>
+          <li><a href="#twc-cta">反馈与举报</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="twc-footer-bottom">
+      <span>© 2019–2026 推特大赛在线 版权所有 · 持续运营中</span>
+      <span>内容均为原创或经授权发布 · 备案号 京ICP备 2026000000 号</span>
+    </div>
+  </div>
+</footer>
+
+<button class="twc-to-top" id="twcToTop" type="button" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<div class="twc-toast" id="twcToast" role="status" aria-live="polite"></div>
+
+<div class="twc-modal" id="twcModal" role="dialog" aria-modal="true" aria-labelledby="twcModalTitle">
+  <div class="twc-modal-box">
+    <button class="twc-modal-close" type="button" id="twcModalClose" aria-label="关闭">×</button>
+    <h3 id="twcModalTitle">提示</h3>
+    <div id="twcModalBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var toastEl = document.getElementById('twcToast');
+  var toastTimer = null;
+  function toast(msg){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('is-on'); }, 2200);
+  }
+
+  /* 移动端菜单 */
+  var menuToggle = document.getElementById('twcMenuToggle');
+  var nav = document.getElementById('twcNav');
+  if(menuToggle && nav){
+    menuToggle.addEventListener('click', function(){
+      var open = nav.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A'){
+        nav.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  /* 搜索反馈 */
+  var searchInput = document.getElementById('twcSearchInput');
+  var feedback = document.getElementById('twcSearchFeedback');
+  var feedbackInner = document.getElementById('twcSearchFeedbackInner');
+  var searchData = [
+    {k:'夜行', t:'找到 3 个与“夜行”相关的赛事专题：城市夜行 · 夜拍影像企划'},
+    {k:'剪辑', t:'找到创作者“林间剪辑”与 12 条剪辑教程内容'},
+    {k:'品牌', t:'找到“品牌短片共创计划 · 第三季”及 4 个品牌命题'},
+    {k:'报名', t:'冬季影像挑战赛报名中，本页底部可快速登记报名意向'},
+    {k:'新人', t:'新人扶持计划已升级，首次参赛进入复评可申请创作津贴'},
+    {k:'城市', t:'找到 2 部城市探索类热门作品与 1 位城市纪录创作者'}
+  ];
+  function runSearch(){
+    if(!searchInput || !feedback || !feedbackInner) return;
+    var q = searchInput.value.trim();
+    if(!q){ feedback.classList.remove('is-on'); feedbackInner.textContent=''; return; }
+    var hit = searchData.filter(function(item){ return q.indexOf(item.k) >= 0 || item.k.indexOf(q) >= 0; });
+    feedback.classList.add('is-on');
+    if(hit.length){
+      feedbackInner.innerHTML = '关于“<strong>' + escapeHtml(q) + '</strong>”：' + escapeHtml(hit[0].t);
+    }else{
+      feedbackInner.innerHTML = '暂未找到与“<strong>' + escapeHtml(q) + '</strong>”直接匹配的赛事，试试“城市”“剪辑”“品牌”或“报名”。';
+    }
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  if(searchInput){
+    searchInput.addEventListener('input', runSearch);
+    searchInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }
+    });
+  }
+
+  /* 点赞 / 收藏 */
+  document.querySelectorAll('[data-twc-like]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var numEl = btn.querySelector('[data-twc-like-num]');
+      var liked = btn.classList.toggle('is-liked');
+      if(numEl){
+        var n = parseInt(numEl.textContent, 10) || 0;
+        numEl.textContent = liked ? (n + 1) : Math.max(0, n - 1);
+      }
+      toast(liked ? '已点赞，感谢你的认可' : '已取消点赞');
+    });
+  });
+  document.querySelectorAll('[data-twc-save]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var saved = btn.classList.toggle('is-saved');
+      toast(saved ? '已加入收藏夹' : '已取消收藏');
+    });
+  });
+
+  /* 标签筛选 */
+  var filterBar = document.getElementById('twcFilterBar');
+  var videoGrid = document.getElementById('twcVideoGrid');
+  if(filterBar && videoGrid){
+    filterBar.addEventListener('click', function(e){
+      var target = e.target.closest('[data-twc-filter]');
+      if(!target) return;
+      filterBar.querySelectorAll('.twc-filter').forEach(function(b){ b.classList.remove('is-active'); });
+      target.classList.add('is-active');
+      var cat = target.getAttribute('data-twc-filter');
+      var count = 0;
+      videoGrid.querySelectorAll('.twc-video-card').forEach(function(card){
+        var show = cat === 'all' || card.getAttribute('data-twc-cat') === cat;
+        card.style.display = show ? '' : 'none';
+        if(show) count++;
+      });
+      toast('当前筛选：' + target.textContent + '，共 ' + count + ' 件作品');
+    });
+  }
+
+  /* 弹窗 */
+  var modal = document.getElementById('twcModal');
+  var modalTitle = document.getElementById('twcModalTitle');
+  var modalBody = document.getElementById('twcModalBody');
+  var modalClose = document.getElementById('twcModalClose');
+
+  function openModal(title, html){
+    if(!modal) return;
+    modalTitle.textContent = title;
+    modalBody.innerHTML = html;
+    modal.classList.add('is-on');
+  }
+  function closeModal(){
+    if(modal) modal.classList.remove('is-on');
+  }
+  if(modalClose) modalClose.addEventListener('click', closeModal);
+  if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+  /* 作者档案 */
+  document.querySelectorAll('[data-twc-author]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var raw = btn.getAttribute('data-twc-author') || '';
+      var parts = raw.split('|');
+      var name = parts[0] || '创作者';
+      var desc = parts[1] || '暂无更多介绍。';
+      openModal(name + ' · 创作者档案',
+        '<p>' + escapeHtml(desc) + '</p>' +
+        '<div class="twc-share-row">' +
+        '<button type="button" data-twc-do="follow">关注创作者</button>' +
+        '<button type="button" data-twc-do="works">查看作品</button>' +
+        '<button type="button" data-twc-do="msg">发送私信</button>' +
+        '</div>');
+    });
+  });
+
+  /* 分享弹窗 */
+  document.querySelectorAll('[data-twc-open="share"]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      openModal('分享官网',
+        '<p>把推特大赛在线官网分享给同样热爱影像的朋友，一起参与本届冬季赛事。</p>' +
+        '<div class="twc-share-row">' +
+        '<button type="button" data-twc-do="wechat">微信</button>' +
+        '<button type="button" data-twc-do="weibo">微博</button>' +
+        '<button type="button" data-twc-do="qq">QQ</button>' +
+        '</div>' +
+        '<button class="twc-btn twc-btn-ghost" type="button" data-twc-do="copy" style="width:100%;margin-top:8px;">复制页面链接</button>');
+    });
+  });
+
+  /* 弹窗内动作 */
+  document.addEventListener('click', function(e){
+    var doBtn = e.target.closest('[data-twc-do]');
+    if(!doBtn) return;
+    var act = doBtn.getAttribute('data-twc-do');
+    if(act === 'copy'){
+      var url = 'https://twsai-contest.example/';
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(function(){ toast('链接已复制到剪贴板'); }, function(){ toast('复制失败，请手动选择链接'); });
+      }else{
+        toast('当前环境不支持自动复制，请手动复制页面地址');
+      }
+      return;
+    }
+    var map = {
+      follow:'已关注该创作者，后续作品将优先推送',
+      works:'正在为你打开该创作者的作品列表',
+      msg:'私信功能需登录后使用，已为你记录',
+      wechat:'请使用微信扫一扫或分享到会话',
+      weibo:'已生成微博分享卡片，请前往发布',
+      qq:'已生成 QQ 分享卡片，请前往发送'
+    };
+    toast(map[act] || '操作已提交');
+    if(act !== 'copy') closeModal();
+  });
+
+  /* 报名表单 */
+  var form = document.getElementById('twcSignupForm');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var nameInput = document.getElementById('twcName');
+      var contactInput = document.getElementById('twcContact');
+      if(!nameInput.value.trim() || !contactInput.value.trim()){
+        toast('请完整填写昵称与联系方式');
+        return;
+      }
+      toast('报名意向已提交，我们将在 3 个工作日内联系你');
+      form.reset();
+    });
+  }
+
+  /* 回到顶部 */
+  var toTop = document.getElementById('twcToTop');
+  if(toTop){
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 520){ toTop.classList.add('is-on'); } else { toTop.classList.remove('is-on'); }
+    }, {passive:true});
+    toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  }
+
+  /* 数字滚动 */
+  var counters = document.querySelectorAll('[data-twc-count]');
+  function animate(el){
+    var target = parseInt(el.getAttribute('data-twc-count'), 10) || 0;
+    var start = performance.now();
+    var dur = 1200;
+    var suffix = el.querySelector('small') ? el.querySelector('small').outerHTML : '';
+    function step(now){
+      var p = Math.min(1, (now - start) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.floor(target * eased);
+      el.innerHTML = val.toLocaleString('zh-CN') + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          animate(en.target);
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:.4});
+    counters.forEach(function(c){ io.observe(c); });
+  }else{
+    counters.forEach(function(c){ c.innerHTML = (parseInt(c.getAttribute('data-twc-count'),10)||0).toLocaleString('zh-CN') + (c.querySelector('small')?c.querySelector('small').outerHTML:''); });
+  }
+
+})();
+</script>
+</body>
+        </html>
